@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: EVENTS-POC
+    id: 1234
+  datasource:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/wfm
+    username: root
+    password: root
+  jpa:
+    hibernate.ddl-auto: none
+    generate-ddl: true
+    show-sql: true
+management:
+  info:
+    env:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: info, health
+
+info:
+  application:
+    name: ${spring.application.name}
+    description: WFM Events
+    version: '@project.version@'
+    spring-cloud-version: '@spring-cloud.version@'
+    spring-boot-version: '@project.parent.version@'
