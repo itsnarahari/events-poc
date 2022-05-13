@@ -4,32 +4,30 @@ import java.io.IOException;
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
+import org.springframework.web.filter.OncePerRequestFilter;
 
 @Component
-public class StatsFilter implements Filter {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(StatsFilter.class);
-
-    @Override
-    public void init(FilterConfig filterConfig) throws ServletException {
-        // empty
-    }
+@Slf4j
+public class StatsFilter extends OncePerRequestFilter {
 
     @Override
-    public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws IOException, ServletException {
-        long time = System.currentTimeMillis();
+    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+
         StopWatch stopWatch=new StopWatch();
         try {
             stopWatch.start();
-            chain.doFilter(req, resp);
+            filterChain.doFilter(request, response);
         } finally {
-//            time = System.currentTimeMillis() - time;
+//
             stopWatch.stop();
-            LOGGER.trace("{}: {} ms ", ((HttpServletRequest) req).getRequestURI(),  stopWatch.prettyPrint());
+            log.info("{}: {} {} {} ms ", ((HttpServletRequest) request).getRequestURI(),request.getMethod() ,request.getQueryString(), stopWatch.getTotalTimeSeconds());
         }
     }
 
