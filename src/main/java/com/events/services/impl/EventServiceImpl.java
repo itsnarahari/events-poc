@@ -1,6 +1,7 @@
 package com.events.services.impl;
 
 import com.events.dao.EventRepository;
+import com.events.dao.EventSpecification;
 import com.events.entities.Events;
 import com.events.exception.EventAlreadyExist;
 import com.events.models.AuthResponse;
@@ -25,22 +26,25 @@ public class EventServiceImpl implements EventService {
     @Autowired
     ObjectMapper objectMapper;
 
+    @Autowired
+    EventSpecification eventSpecification;
+
     @Override
     @Transactional
-    public AuthResponse saveEvent(EventRequest eventRequest) {
+    public Events saveEvent(EventRequest eventRequest) {
         Events events = objectMapper.convertValue(eventRequest, Events.class);
         Optional<Events> eventsOptional = eventRepository.findEventsByEventNameOrDivn(events.getEventName(), events.getDivn());
-
-        if(eventsOptional.isPresent()){
+        if (eventsOptional.isPresent()) {
             throw new EventAlreadyExist("Duplicate record");
         }
-        return new AuthResponse(true, "success");
+        return eventRepository.save(events);
     }
 
     @Override
-    public List<EventResponse> getAllEvents() {
-        List<Events> allEvents = eventRepository.findAll();
-        List<EventResponse> list = objectMapper.convertValue(allEvents, new TypeReference<List<EventResponse>>(){});
-        return list;
+    public List<EventResponse> getAllEvents(Long eventId, Long divn, String eventName, String sortBy) {
+        List<Events> events = eventRepository.findAll(eventSpecification.getEvents(eventId, divn, eventName, sortBy));
+        List<EventResponse> eventResponses = objectMapper.convertValue(events, new TypeReference<List<EventResponse>>() {
+        });
+        return eventResponses;
     }
 }
