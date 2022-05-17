@@ -30,7 +30,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ApiException.class)
     public ResponseEntity<?> apiException(ApiException exception, WebRequest request){
         ErrorDetails details = new ErrorDetails(new Date(), exception.getMessage(), request.getDescription(false));
-        return new ResponseEntity<>(details,HttpStatus.INTERNAL_SERVER_ERROR);
+        return ResponseEntity.status(exception.getStatusCode()).body(details);
     }
 
     @Override

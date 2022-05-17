@@ -1,9 +1,6 @@
 package com.events.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -14,28 +11,23 @@ import java.util.Date;
 @Getter
 @Table(name = "WFM_AVAIL_EVENTS")
 @AllArgsConstructor@NoArgsConstructor
+@ToString
 public class Events {
 
-    @Column(name = "EVENT_ID")
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "EVENT_ID")
     private Long eventId;
-    @NotNull(message = "should not be null")
     @Column(name = "DIVN")
     private Long divn;
-    @NotNull(message = "should not be null")
     @Column(name = "EVENTNAME")
     private String eventName;
-    @NotNull(message = "should not be null")
     @Column(name = "START_DTM")
     private Date startDtm;
-    @NotNull(message = "should not be null")
     @Column(name = "END_DTM")
     private Date endDtm;
-    @NotNull(message = "displayStartDtm date should not be null")
     @Column(name = "DISPLAY_START_DTM")
     private Date displayStartDtm;
-    @NotNull(message = "displayEndDtm date should not be null")
     @Column(name = "DISPLAY_END_DTM")
     private Date displayEndDtm;
     @Column(name = "ALLOW_CHGS")
@@ -46,13 +38,4 @@ public class Events {
     private String lastUpdatedBy;
     @Column(name = "LAST_UPDATE")
     private Date lastUpdate;
-
-    @PrePersist
-    protected void createDate(){
-        createDate=new Date();
-    }
-    @PreUpdate
-    protected void lastUpdate(){
-        lastUpdate=new Date();
-    }
 }

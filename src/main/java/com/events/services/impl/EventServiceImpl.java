@@ -5,7 +5,6 @@ import com.events.dao.EventSpecification;
 import com.events.entities.Events;
 import com.events.exception.ApiException;
 import com.events.exception.EventAlreadyExist;
-import com.events.models.AuthResponse;
 import com.events.models.EventRequest;
 import com.events.models.EventResponse;
 import com.events.services.EventService;
@@ -34,13 +33,16 @@ public class EventServiceImpl implements EventService {
 
     @Override
     @Transactional
-    public Events saveEvent(EventRequest eventRequest) {
+    public EventResponse saveEvent(EventRequest eventRequest) {
+
         Events events = objectMapper.convertValue(eventRequest, Events.class);
         Optional<Events> eventsOptional = eventRepository.findEventsByEventNameOrDivn(events.getEventName(), events.getDivn());
         if (eventsOptional.isPresent()) {
             throw new EventAlreadyExist("Duplicate record");
         }
-        return eventRepository.save(events);
+        Events save = eventRepository.save(events);
+        EventResponse eventsResponse = objectMapper.convertValue(save, EventResponse.class);
+        return eventsResponse;
     }
 
     @Override
@@ -49,5 +51,11 @@ public class EventServiceImpl implements EventService {
         List<EventResponse> eventResponses = objectMapper.convertValue(events, new TypeReference<>() {
         });
         return eventResponses;
+    }
+
+    @Override
+    public EventResponse getEventById(Long id) {
+        Events events = eventRepository.findById(id).orElseThrow(() -> new ApiException(String.format("Event not found with event id %d",id), 404));
+        return objectMapper.convertValue(events, EventResponse.class);
     }
 }

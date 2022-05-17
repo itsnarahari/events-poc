@@ -7,9 +7,9 @@ import java.util.Date;
 
 @Setter@Getter
 @AllArgsConstructor@NoArgsConstructor
+@ToString
 public class EventRequest {
 
-    private Long eventId;
     @NotNull(message = "should not be null")
     private Long divn;
     @NotNull(message = "should not be null")

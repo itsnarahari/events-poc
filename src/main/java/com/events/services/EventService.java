@@ -9,6 +9,7 @@ import java.util.List;
 
 public interface EventService {
 
-    public Events saveEvent(EventRequest eventRequest);
+    public EventResponse saveEvent(EventRequest eventRequest);
     public List<EventResponse> getAllEvents(Long eventId, Long divn, String eventName, String sortBy);
+    EventResponse getEventById(Long id);
 }
