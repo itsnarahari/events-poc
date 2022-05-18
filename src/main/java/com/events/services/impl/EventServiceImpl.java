@@ -41,12 +41,13 @@ public class EventServiceImpl implements EventService {
     public EventResponse saveEvent(EventRequest eventRequest) {
 
         Events events = objectMapper.convertValue(eventRequest, Events.class);
-        if (events.getLastUpdate() == null) {
-            events.setLastUpdate(events.getCreateDate());
-        }
+
         Optional<Events> eventsOptional = eventRepository.findEventsByEventNameOrDivn(events.getEventName(), events.getDivn());
         if (eventsOptional.isPresent()) {
             throw new EventAlreadyExist("Duplicate record");
+        }
+        if (events.getLastUpdate() == null) {
+            events.setLastUpdate(events.getCreateDate());
         }
         Events savedEvents = eventRepository.save(events);
         EventResponse eventsResponse = objectMapper.convertValue(savedEvents, EventResponse.class);

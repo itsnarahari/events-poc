@@ -23,7 +23,7 @@ public class EventRequest {
     @NotNull(message = "should not be null")
     private Date displayEndDtm;
     private String allowChgs;
-    private Date createDate;
+    private Date createDate=new Date();
     private String lastUpdatedBy;
     private Date lastUpdate;
 
