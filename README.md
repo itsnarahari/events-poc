@@ -2,7 +2,7 @@
 
 #Post
 
-curl --location --request POST 'localhost:8080/events' \
+curl --location --request POST 'localhost:8080/event' \
 --header 'Content-Type: application/json' \
 --data-raw '        {
             "divn": 72,
@@ -18,5 +18,5 @@ curl --location --request POST 'localhost:8080/events' \
         }'
 # Get call curl
 
-curl --location --request GET 'localhost:8080/events?offset=0&divn=67&eventId=70&pageSize=30'
-curl --location --request GET 'localhost:8080/events?offset=0&pageSize=30'
+curl --location --request GET 'localhost:8080/event?offset=0&divn=67&eventId=70&pageSize=30'
+curl --location --request GET 'localhost:8080/event?offset=0&pageSize=30'

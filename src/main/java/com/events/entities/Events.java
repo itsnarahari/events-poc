@@ -43,4 +43,8 @@ public class Events {
     public void prePersist() {
         this.createDate = new Date();
     }
+    @PreUpdate
+    public void preUpdate() {
+        this.lastUpdate = new Date();
+    }
 }
