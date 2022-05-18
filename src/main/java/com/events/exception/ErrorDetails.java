@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @AllArgsConstructor@NoArgsConstructor
@@ -14,7 +15,6 @@ import java.util.Date;
 public class ErrorDetails {
 
     private Date timestamp;
-    @JsonDeserialize(using = LocalTimeDeserializer.class)
     private String message;
     private String uri;
 

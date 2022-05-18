@@ -3,7 +3,6 @@ package com.events.entities;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -12,7 +11,7 @@ import java.util.Date;
 @Table(name = "WFM_AVAIL_EVENTS")
 @AllArgsConstructor@NoArgsConstructor
 @ToString
-public class Events {
+public class WfmAvailEvent {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,13 +22,13 @@ public class Events {
     @Column(name = "EVENTNAME")
     private String eventName;
     @Column(name = "START_DTM")
-    private Date startDtm;
+    private Date startDate;
     @Column(name = "END_DTM")
-    private Date endDtm;
+    private Date endDate;
     @Column(name = "DISPLAY_START_DTM")
-    private Date displayStartDtm;
+    private Date displayStartDate;
     @Column(name = "DISPLAY_END_DTM")
-    private Date displayEndDtm;
+    private Date displayEndDate;
     @Column(name = "ALLOW_CHGS")
     private String allowChgs;
     @Column(name = "CREATE_DATE")
@@ -37,7 +36,7 @@ public class Events {
     @Column(name = "LAST_UPDATED_BY")
     private String lastUpdatedBy;
     @Column(name = "LAST_UPDATE")
-    private Date lastUpdate;
+    private Date lastUpdateDate;
 
     @PrePersist
     public void prePersist() {
@@ -45,6 +44,6 @@ public class Events {
     }
     @PreUpdate
     public void preUpdate() {
-        this.lastUpdate = new Date();
+        this.lastUpdateDate = new Date();
     }
 }

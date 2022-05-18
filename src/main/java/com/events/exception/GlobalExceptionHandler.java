@@ -1,6 +1,7 @@
 package com.events.exception;
 
 import com.events.models.MixedError;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,8 +12,10 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -32,6 +35,14 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         ErrorDetails details = new ErrorDetails(new Date(), exception.getMessage(), request.getDescription(false));
         return ResponseEntity.status(exception.getStatusCode()).body(details);
     }
+
+
+    @ExceptionHandler(value = { SQLIntegrityConstraintViolationException.class, DataIntegrityViolationException.class })
+    public ResponseEntity<ErrorDetails> handleMappingException(Exception exception, WebRequest request) {
+        ErrorDetails details = new ErrorDetails(new Date(), exception.getMessage(), request.getDescription(false));
+        return ResponseEntity.status(400).body(details);
+    }
+
 
     @Override
     protected ResponseEntity handleMethodArgumentNotValid(

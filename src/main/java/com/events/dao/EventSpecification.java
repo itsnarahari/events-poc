@@ -1,6 +1,6 @@
 package com.events.dao;
 
-import com.events.entities.Events;
+import com.events.entities.WfmAvailEvent;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +11,7 @@ import java.util.List;
 @Component
 public class EventSpecification {
 
-    public Specification<Events> getEvents(Long eventId, Long divn, String eventName, String sortBy) {
+    public Specification<WfmAvailEvent> getEvents(Long eventId, Long divn, String eventName, String sortBy) {
         return (root, query, criteriaBuilder) -> {
             List<Predicate> predicates = new ArrayList<>();
             if (eventId != null) {
