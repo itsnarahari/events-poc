@@ -53,7 +53,6 @@ class EventsPocApplicationTests {
 		events=objectMapper.convertValue(eventRequest, Events.class);
 		eventResponse = objectMapper.convertValue(events, EventResponse.class);
 		events.setEventId(34l);
-
 	}
 
 	@DisplayName("Test for save event")

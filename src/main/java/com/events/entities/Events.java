@@ -38,4 +38,9 @@ public class Events {
     private String lastUpdatedBy;
     @Column(name = "LAST_UPDATE")
     private Date lastUpdate;
+
+    @PrePersist
+    public void prePersist() {
+        this.createDate = new Date();
+    }
 }

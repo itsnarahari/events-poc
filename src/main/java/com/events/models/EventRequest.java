@@ -25,6 +25,6 @@ public class EventRequest {
     private String allowChgs;
     private Date createDate=new Date();
     private String lastUpdatedBy;
-    private Date lastUpdate=new Date();
+    private Date lastUpdateDate=new Date();
 
 }

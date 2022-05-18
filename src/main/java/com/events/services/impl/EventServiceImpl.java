@@ -45,7 +45,8 @@ public class EventServiceImpl implements EventService {
         if (eventsOptional.isPresent()) {
             throw new EventAlreadyExist("Duplicate record");
         }
-        EventResponse eventsResponse = objectMapper.convertValue(eventRepository.save(events), EventResponse.class);
+        Events savedEvents = eventRepository.save(events);
+        EventResponse eventsResponse = objectMapper.convertValue(savedEvents, EventResponse.class);
         return eventsResponse;
     }
 
