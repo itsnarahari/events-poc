@@ -41,7 +41,7 @@ public class EventServiceImpl implements EventService {
     public EventResponse saveEvent(EventRequest eventRequest) {
 
         Events events = objectMapper.convertValue(eventRequest, Events.class);
-        if(events.getLastUpdate() == null){
+        if (events.getLastUpdate() == null) {
             events.setLastUpdate(events.getCreateDate());
         }
         Optional<Events> eventsOptional = eventRepository.findEventsByEventNameOrDivn(events.getEventName(), events.getDivn());
@@ -60,9 +60,10 @@ public class EventServiceImpl implements EventService {
         EventListResponse eventListResponse = objectMapper.convertValue(events, EventListResponse.class);
         return eventListResponse;
     }
-        @Override
+
+    @Override
     public EventResponse getEventById(Long id) {
-        Events events = eventRepository.findById(id).orElseThrow(() -> new ApiException(String.format("Event not found with event id %d",id), 404));
+        Events events = eventRepository.findById(id).orElseThrow(() -> new ApiException(String.format("Event not found with event id %d", id), 404));
         return objectMapper.convertValue(events, EventResponse.class);
     }
 }

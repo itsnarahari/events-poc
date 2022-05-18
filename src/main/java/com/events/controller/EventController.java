@@ -18,7 +18,7 @@ public class EventController {
     EventService service;
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity saveEvents(@Valid @RequestBody EventRequest eventRequest){
+    public ResponseEntity saveEvents(@Valid @RequestBody EventRequest eventRequest) {
         EventResponse eventResponse = service.saveEvent(eventRequest);
         return ResponseEntity.ok().body(eventResponse);
     }
@@ -29,12 +29,12 @@ public class EventController {
                                        @RequestParam(required = false) String eventName,
                                        @RequestParam(required = false, defaultValue = "eventName") String sortBy,
                                        @RequestParam(required = false, defaultValue = "0") int offset,
-                                       @RequestParam(required = false, defaultValue = "10") int pageSize){
-        return ResponseEntity.ok().body(service.getAllEvents(eventId,divn,eventName,sortBy,offset,pageSize));
+                                       @RequestParam(required = false, defaultValue = "10") int pageSize) {
+        return ResponseEntity.ok().body(service.getAllEvents(eventId, divn, eventName, sortBy, offset, pageSize));
     }
 
-    @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getEventById(@PathVariable Long id){
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity getEventById(@PathVariable Long id) {
         return ResponseEntity.ok().body(service.getEventById(id));
     }
 }
