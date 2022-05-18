@@ -10,7 +10,6 @@ import java.util.Date;
 @ToString
 public class EventRequest {
 
-    private Long eventId;
     @NotNull(message = "should not be null")
     private Long divn;
     @NotNull(message = "should not be null")

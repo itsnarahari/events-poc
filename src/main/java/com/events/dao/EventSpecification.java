@@ -23,7 +23,7 @@ public class EventSpecification {
             if (eventName != null && !eventName.isEmpty() && !eventName.isBlank()) {
                 predicates.add(criteriaBuilder.equal(root.get("eventName"), eventName));
             }
-            query.orderBy(criteriaBuilder.desc(root.get(sortBy!=null && !sortBy.isBlank() ? sortBy : "eventName")));
+//            query.orderBy(criteriaBuilder.desc(root.get(sortBy!=null && !sortBy.isBlank() ? sortBy : "eventName")));
             return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
         };
     }

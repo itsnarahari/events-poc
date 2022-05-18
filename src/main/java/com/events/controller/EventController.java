@@ -24,8 +24,13 @@ public class EventController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getAllEvents(@RequestParam(required = false) Long eventId, @RequestParam(required = false) Long divn, @RequestParam(required = false) String eventName,@RequestParam(required = false) String sortBy){
-        return ResponseEntity.ok().body(service.getAllEvents(eventId,divn,eventName,sortBy));
+    public ResponseEntity getAllEvents(@RequestParam(required = false) Long eventId,
+                                       @RequestParam(required = false) Long divn,
+                                       @RequestParam(required = false) String eventName,
+                                       @RequestParam(required = false, defaultValue = "eventName") String sortBy,
+                                       @RequestParam(required = false, defaultValue = "0") int offset,
+                                       @RequestParam(required = false, defaultValue = "10") int pageSize){
+        return ResponseEntity.ok().body(service.getAllEvents(eventId,divn,eventName,sortBy,offset,pageSize));
     }
 
     @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)

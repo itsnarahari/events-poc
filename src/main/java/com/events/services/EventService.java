@@ -1,15 +1,12 @@
 package com.events.services;
 
-import com.events.entities.Events;
-import com.events.models.AuthResponse;
+import com.events.models.EventListResponse;
 import com.events.models.EventRequest;
 import com.events.models.EventResponse;
 
-import java.util.List;
-
 public interface EventService {
 
-    public EventResponse saveEvent(EventRequest eventRequest);
-    public List<EventResponse> getAllEvents(Long eventId, Long divn, String eventName, String sortBy);
+    EventResponse saveEvent(EventRequest eventRequest);
     EventResponse getEventById(Long id);
+    EventListResponse getAllEvents(Long eventId, Long divn, String eventName, String sortBy, int offset, int size);
 }
